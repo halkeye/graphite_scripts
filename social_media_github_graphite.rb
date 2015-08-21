@@ -3,7 +3,7 @@ require './social_media.rb'
 require "net/http"
 require 'json'
 
-@cli = Base.new({
+@cli = SocialMedia.new({
   :name => "github",
   :interval => 60,
 })

@@ -2,7 +2,7 @@ require 'optparse'
 require 'inifile'
 require 'simple-graphite'
 
-class Base
+class SocialMedia
   attr_accessor :interval
   attr_accessor :config
   attr_accessor :debug
