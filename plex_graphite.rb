@@ -6,6 +6,9 @@ require 'simple-graphite'
 require "net/http"
 require "uri"
 require 'optparse'
+require 'openssl'
+
+STDOUT.sync = true
 
 options = {
   :interval => 10,
@@ -30,6 +33,8 @@ g = Graphite.new({:host => ini['graphite']['host'], :port =>  ini['graphite']['p
 # config = ini["plex_graphite.rb.rb:#{ARGV[0]}"]
 
 http = Net::HTTP.new(ini['plex']['host'], ini['plex']['port'].to_i)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE # read into this
 while true do
   g.push_to_graphite do |graphite|
     response = http.request(Net::HTTP::Get.new('/status/sessions'))

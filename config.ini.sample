@@ -1,0 +1,24 @@
+[graphite]
+host=localhost
+port=2003
+
+[plex]
+host=localhost
+port=32400
+
+[ipmi_sensors_graphite.rb:servername]
+username=admin
+password=admin
+host=<ipaddress>
+name=<servername
+
+[social_media:github]
+token=Personal Access Token
+
+[social_media:twitter]
+client_id=Application Access Token
+client_secret=Application Access Token Secret
+
+[social_media:linkedin]
+client_id=Application Access Token
+client_secret=Application Access Token Secret
