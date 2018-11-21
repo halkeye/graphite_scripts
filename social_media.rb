@@ -47,14 +47,26 @@ class SocialMedia
 
   def graphite
     @graphite ||= Graphite.new({
-      :host => ini['graphite']['host'],
-      :port => ini['graphite']['port'].to_i,
+      :host => _config('graphite', 'host'),
+      :port => _config('graphite', 'port').to_i,
       :type => :udp
     })
   end
 
+  def _config(prefix, key)
+    return keys = [
+      "#{prefix}:#{self.name}:#{self.username}",
+      "#{prefix}:#{self.name}",
+      "#{prefix}",
+      ].find do |prefix|
+        return ini[prefix][key] if ini and ini.has_section?(prefix)
+        newkey = "#{prefix}:#{key.upcase}".upcase.gsub(":", "_")
+        return ENV[newkey] if ENV.key?(newkey)
+      end
+  end
+
   def config(key)
-    return ini["social_media:#{self.name}:#{self.username}"][key] || ini["social_media:#{self.name}"][key]
+    return _config("social_media", key)
   end
 
   def oauth_access_token
