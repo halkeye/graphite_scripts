@@ -49,7 +49,7 @@ class SocialMedia
     @graphite ||= Graphite.new({
       :host => _config('graphite', 'host'),
       :port => _config('graphite', 'port').to_i,
-      :type => :udp
+      :type => _config('graphite', 'type') || :tcp
     })
   end
 
